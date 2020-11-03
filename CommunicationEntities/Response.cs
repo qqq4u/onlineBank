@@ -17,6 +17,6 @@ namespace CommunicationEntities
         public StatusList Status { get; set; }
         public string Data { get; set; }
 
-       //todo huy
+       
     }
 }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CardDoesNotExistException.cs" />
     <Compile Include="NotEnoughMoneyException.cs" />
+    <Compile Include="WrongAPIKeyException.cs" />
     <Compile Include="WrongLoginPasswordException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
