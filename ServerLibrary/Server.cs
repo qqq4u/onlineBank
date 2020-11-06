@@ -18,7 +18,7 @@ namespace ServerLibrary
         public Server()
         {
             httpListener = new HttpListener();
-            httpListener.Prefixes.Add("http://localhost:21378/connection/");
+            httpListener.Prefixes.Add("http://localhost:21378/api/");
         }
 
         public void Start()

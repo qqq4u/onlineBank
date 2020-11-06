@@ -13,7 +13,7 @@ namespace DbWorker.Tools
         public static MySqlConnection GetConnection()
         {
             string connectionString =
-                "server=127.0.0.1;database=myonlinebank;user=root;password=dashasofia2;charset=utf-8;";
+                "server=127.0.0.1;database=myonlinebank;user=root;password=dashasofia2;port=5000;charset=utf8;";
 
             return new MySqlConnection(connectionString);
         }

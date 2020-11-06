@@ -9,7 +9,7 @@ namespace DbWorker
 {
     public class DbManager
     {
-        public static DbManager instance = null;
+        private static DbManager instance = null;
 
         public static DbManager GetInstance()
         {

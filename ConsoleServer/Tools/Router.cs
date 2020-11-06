@@ -16,9 +16,19 @@ namespace ConsoleServer.Tools
             string className = requestParts[0];
             string methodName = requestParts[1];
 
-            Type type = Type.GetType($"ConsoleServer.Controllers.{className} Controller");
+            Type type = Type.GetType($"ConsoleServer.Controllers.{className}Controller");
 
-            Response response = (Response)type.InvokeMember(methodName, BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null, new object[] { request.Parameters});
+            Response response = null;
+
+            if (request.Parameters != "{}")
+            {
+                response = (Response)type.InvokeMember(methodName, BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null, new object[] { request.Parameters });
+            }
+            else
+            {
+                response = (Response)type.InvokeMember(methodName, BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null, null);
+
+            }
 
             return response;
         }

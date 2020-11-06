@@ -24,7 +24,7 @@ namespace ClientLibrary
 
             StringContent content = new StringContent(data, Encoding.UTF8,"application/json");
 
-            HttpResponseMessage responseMessage = await httpClient.PostAsync("http://localhost:21378/connection/", content);
+            HttpResponseMessage responseMessage = await httpClient.PostAsync("http://localhost:21378/api/", content);
 
 
             string responseJson = await responseMessage.Content.ReadAsStringAsync();

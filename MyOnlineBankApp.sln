@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientLibrary", "ClientLibr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleServer", "ConsoleServer\ConsoleServer.csproj", "{83AA93EF-FCB9-420E-B1B8-B19311D69EA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFClient", "WFClient\WFClient.csproj", "{823A0707-8F9E-4DE0-85D3-C2123C670EBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{83AA93EF-FCB9-420E-B1B8-B19311D69EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83AA93EF-FCB9-420E-B1B8-B19311D69EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83AA93EF-FCB9-420E-B1B8-B19311D69EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823A0707-8F9E-4DE0-85D3-C2123C670EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823A0707-8F9E-4DE0-85D3-C2123C670EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823A0707-8F9E-4DE0-85D3-C2123C670EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823A0707-8F9E-4DE0-85D3-C2123C670EBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
