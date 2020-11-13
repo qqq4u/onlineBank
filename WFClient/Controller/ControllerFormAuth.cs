@@ -26,6 +26,7 @@ namespace WFClient.Controller
 
         public async Task UserGetUserByLoginPassword()
         {
+            form.buttonAuth.Enabled = false;
             string login = form.textBoxLogin.Text;
             string password = form.textBoxPassword.Text;
 
@@ -34,12 +35,20 @@ namespace WFClient.Controller
             if (response.Status == Response.StatusList.OK)
             {
                 User user = JsonConvert.DeserializeObject<User>(response.Data);
+
+                MessageBox.Show("success");
+
+                DataStorage.Add("user", user);
+
+                form.Hide();
+                new FormMain().ShowDialog();
             }
             else if (response.Status == Response.StatusList.ERROR)
             {
+                form.buttonAuth.Enabled = true;
                 MessageBox.Show(response.Data);
             }
-            
+
 
         }
     }

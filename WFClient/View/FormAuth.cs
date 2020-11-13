@@ -24,9 +24,9 @@ namespace WFClient.View
             controller = new ControllerFormAuth(this);
         }
 
-        private void buttonAuth_Click(object sender, EventArgs e)
+        private async void buttonAuth_Click(object sender, EventArgs e)
         {
-            controller.UserGetUserByLoginPassword();
+            await controller.UserGetUserByLoginPassword();
         }
     }
 }

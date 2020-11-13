@@ -47,5 +47,64 @@ namespace WFClient.Model
             return client.RetrieveServerResponseAsync(request);
 
         }
+
+        public Task<Response> SendMoney(int numberCardFrom, int numberCardTo, int moneyCount)
+        {
+            Dictionary<string, int> sendMoneyParameters = new Dictionary<string, int>();
+
+            sendMoneyParameters["numberCardFrom"] = numberCardFrom;
+            sendMoneyParameters["numberCardTo"] = numberCardTo;
+            sendMoneyParameters["moneyCount"] = moneyCount;
+
+            Request request = new Request()
+            {
+                Command = "Cards.SendMoney",
+                Parameters = JsonConvert.SerializeObject(sendMoneyParameters),
+                APIKey = apiKey
+            };
+
+            return client.RetrieveServerResponseAsync(request);
+        }
+
+        public Task<Response> AddingCardBalanceByNumber(int cardNumber, int moneyCount)
+        {
+            Dictionary<string, int> addingBalanceParameters = new Dictionary<string, int>();
+            addingBalanceParameters["cardNumber"] = cardNumber;
+            addingBalanceParameters["moneyCount"] = moneyCount;
+            Request request = new Request()
+            {
+                Command = "Cards.AddingCardBalanceByNumber",
+                Parameters = JsonConvert.SerializeObject(addingBalanceParameters),
+                APIKey = apiKey
+            };
+            return client.RetrieveServerResponseAsync(request);
+        }
+
+
+        public Task<Response> CardsGetCardsByUserId(int userID)
+        {
+
+            Request request = new Request()
+            {
+                Command = "Cards.GetCardsByUserId",
+                Parameters = userID.ToString(),
+                APIKey = apiKey
+            };
+
+            return client.RetrieveServerResponseAsync(request);
+
+        }
+
+        public Task<Response> CardCreateNewCardWithUniqueNumber(int userID)
+        {
+            Request request = new Request()
+            {
+                Command = "Cards.CreateNewCardWithUniqueNumber",
+                Parameters = userID.ToString(),
+                APIKey = apiKey
+            };
+
+            return client.RetrieveServerResponseAsync(request);
+        }
     }
 }

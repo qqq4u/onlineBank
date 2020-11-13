@@ -101,6 +101,6 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonAuth;
+        public System.Windows.Forms.Button buttonAuth;
     }
 }

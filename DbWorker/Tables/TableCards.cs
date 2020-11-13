@@ -12,6 +12,63 @@ namespace DbWorker.Tables
 {
     public class TableCards
     {
+        //todo сделать перевод денег с карты на карту
+        //todo пополнение карты по номеру
+
+
+
+        public void AddingCardBalanceByNumber(int cardNumber, int moneyCount)
+        {
+            try
+            {
+                Card card = GetCardByNumber(cardNumber);
+                using (MySqlConnection mySqlConnection = DbConnection.GetConnection())
+                {
+                    mySqlConnection.Open();
+                    using (MySqlCommand mySqlCommand = mySqlConnection.CreateCommand())
+                    {
+                        mySqlCommand.CommandText = $"UPDATE `cards` SET `balance` = `balance` + {moneyCount} WHERE `number`={card.Number};";
+                        mySqlCommand.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private bool IsCardNumberUnique(int number)
+        {
+            try
+            {
+                using (MySqlConnection mySqlConnection = DbConnection.GetConnection())
+                {
+                    mySqlConnection.Open();
+                    using (MySqlCommand mySqlCommand = mySqlConnection.CreateCommand())
+                    {
+                        mySqlCommand.CommandText = $"SELECT * FROM `cards` WHERE `number` = {number};";
+                        using (MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader())
+                        {
+                            if (mySqlDataReader.HasRows)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
         public List<Card> GetCardsByUserId(int userId)
         {
             try
@@ -30,7 +87,7 @@ namespace DbWorker.Tables
                             {
                                 cards.Add(new Card()
                                 {
-                                    Id = mySqlDataReader.GetByte("id"),
+                                    Id = mySqlDataReader.GetInt32("id"),
                                     Number = mySqlDataReader.GetInt32("number"),
                                     Balance = mySqlDataReader.GetInt32("balance")
                                 });
@@ -87,9 +144,52 @@ namespace DbWorker.Tables
             }
         }
 
-
-        public void CreateNewCard(int number, int userId)
+        public Card CreateNewCardWithUniqueNumber(int userId)
         {
+            try
+            {
+                Random rnd = new Random();
+                int number = rnd.Next();
+                Card card;
+                while (!IsCardNumberUnique(number))
+                {
+                    number = rnd.Next();
+                }
+
+                CreateNewCard(number, userId);
+
+                using (MySqlConnection mySqlConnection = DbConnection.GetConnection())
+                {
+                    mySqlConnection.Open();
+                    using (MySqlCommand mySqlCommand = mySqlConnection.CreateCommand())
+                    {
+                        mySqlCommand.CommandText = "SELECT * FROM `cards` ORDER BY id DESC LIMIT 1;";
+                        using (MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader())
+                        {
+                            mySqlDataReader.Read();
+                            card = new Card()
+                            {
+                                Id = mySqlDataReader.GetInt32("id"),
+                                Balance = mySqlDataReader.GetInt32("balance"),
+                                Number = mySqlDataReader.GetInt32("number")
+                            };
+                        }
+                    }
+                }
+
+                return card;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+
+        }
+        private void CreateNewCard(int number, int userId)
+        {
+
             try
             {
                 using (MySqlConnection mySqlConnection = DbConnection.GetConnection())
@@ -136,7 +236,7 @@ namespace DbWorker.Tables
                 Card cardFrom = GetCardByNumber(numberCardFrom);
                 Card cardTo = GetCardByNumber(numberCardTo);
 
-                if (cardFrom.Balance<moneyCount)
+                if (cardFrom.Balance < moneyCount)
                 {
                     throw new NotEnoughMoneyException();
                 }
@@ -156,7 +256,7 @@ namespace DbWorker.Tables
 
                                 mySqlCommand.CommandText = $"UPDATE `cards` SET `balance` = `balance` + {moneyCount} WHERE `number`={cardTo.Number};";
                                 mySqlCommand.ExecuteNonQuery();
-                                
+
                                 mySqlTransaction.Commit();
                             }
                             catch (Exception e)
