@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommunicationEntities;
 using DBEntities;
+using HashLib;
 using Newtonsoft.Json;
 using WFClient.Model;
 using WFClient.View;
@@ -27,10 +28,16 @@ namespace WFClient.Controller
         public async Task UserGetUserByLoginPassword()
         {
             form.buttonAuth.Enabled = false;
+
             string login = form.textBoxLogin.Text;
             string password = form.textBoxPassword.Text;
 
-            Response response = await API.UsersGetUserByLoginPassword(login, password);
+
+            IHash hash = HashFactory.Crypto.CreateSHA512();
+            HashResult passwordHashed = hash.ComputeString(password, Encoding.Unicode);
+
+
+            Response response = await API.UsersGetUserByLoginPassword(login, passwordHashed.ToString());
 
             if (response.Status == Response.StatusList.OK)
             {

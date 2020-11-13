@@ -41,11 +41,11 @@ namespace ConsoleServer.Controllers
 
         public static Response AddingCardBalanceByNumber(string parameters)
         {
-            Dictionary<string, int> addinBalanceParameters =
+            Dictionary<string, int> addingBalanceParameters =
                 JsonConvert.DeserializeObject<Dictionary<string, int>>(parameters);
 
-            int cardNumber = addinBalanceParameters["cardNumber"];
-            int moneyCount = addinBalanceParameters["moneyCount"];
+            int cardNumber = addingBalanceParameters["cardNumber"];
+            int moneyCount = addingBalanceParameters["moneyCount"];
 
             DbManager.GetInstance().TableCards.AddingCardBalanceByNumber(cardNumber, moneyCount);
 

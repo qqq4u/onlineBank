@@ -12,8 +12,6 @@ namespace DbWorker.Tables
 {
     public class TableCards
     {
-        //todo сделать перевод денег с карты на карту
-        //todo пополнение карты по номеру
 
 
 
@@ -50,14 +48,7 @@ namespace DbWorker.Tables
                         mySqlCommand.CommandText = $"SELECT * FROM `cards` WHERE `number` = {number};";
                         using (MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader())
                         {
-                            if (mySqlDataReader.HasRows)
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                return true;
-                            }
+                            return !mySqlDataReader.HasRows;
                         }
                     }
                 }
