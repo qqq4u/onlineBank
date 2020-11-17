@@ -19,14 +19,33 @@ namespace ConsoleServer.Controllers
 
             string login = userParameters["login"];
             string password = userParameters["password"];
-            
-            User user = DbManager.GetInstance().TableUsers.GetUserByLoginPassword(login,password);
+
+            User user = DbManager.GetInstance().TableUsers.GetUserByLoginPassword(login, password);
 
             return new Response()
             {
                 Status = Response.StatusList.OK,
                 Data = JsonConvert.SerializeObject(user)
             };
+        }
+
+        public static Response RegisterNewUser(string parameters)
+        {
+            Dictionary<string, string> registerParameters =
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(parameters);
+
+            string name = registerParameters["name"];
+            string login = registerParameters["login"];
+            string password = registerParameters["password"];
+
+            User user = DbManager.GetInstance().TableUsers.RegisterNewUser(name, login, password);
+
+            return new Response()
+            {
+                Status = Response.StatusList.OK,
+                Data = JsonConvert.SerializeObject(user)
+            };
+
         }
     }
 }

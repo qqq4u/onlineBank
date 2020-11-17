@@ -58,5 +58,14 @@ namespace WFClient.Controller
 
 
         }
+
+        public void OpenNewRegistrationForm()
+        {
+            FormRegistration formRegistration = new FormRegistration();
+
+            form.Visible = false;
+            formRegistration.ShowDialog();
+            form.Visible = true;
+        }
     }
 }

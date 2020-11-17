@@ -53,5 +53,84 @@ namespace DbWorker.Tables
                 throw e;
             }
         }
+        private bool IsLoginExists(string login)
+        {
+            try
+            {
+
+                using (MySqlConnection mySqlConnection = DbConnection.GetConnection())
+                {
+                    mySqlConnection.Open();
+                    using (MySqlCommand mySqlCommand = mySqlConnection.CreateCommand())
+                    {
+                        mySqlCommand.CommandText = $"SELECT * FROM `users` WHERE `login`='{login}'";
+                        using (MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader())
+                        {
+                            if (mySqlDataReader.HasRows == true)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }s
+                        }
+                    }
+                }
+
+              
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+        public User RegisterNewUser(string name, string login, string password)
+        {
+            try
+            {
+                User registeredUser = null;
+
+                using (MySqlConnection mySqlConnection = DbConnection.GetConnection())
+                {
+                    mySqlConnection.Open();
+                    using (MySqlCommand mySqlCommand = mySqlConnection.CreateCommand())
+                    {
+                        if (!IsLoginExists(login))
+                        {
+                            mySqlCommand.CommandText = $"INSERT `users` (name,login,password) VALUES ('{name}','{login}','{password}')";
+                            mySqlCommand.ExecuteNonQuery();
+
+                            mySqlCommand.CommandText = "SELECT * FROM `users` ORDER BY id DESC LIMIT 1;";
+                            using (MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader())
+                            {
+                                mySqlDataReader.Read();
+                                registeredUser = new User()
+                                {
+                                    Id = mySqlDataReader.GetInt32("id"),
+                                    Name = mySqlDataReader.GetString("name"),
+                                    Login = mySqlDataReader.GetString("login"),
+                                    Password = mySqlDataReader.GetString("password")
+                                };
+                            }
+
+                        }
+                        else
+                        {
+                            throw new LoginIsAlreadyUsedException();
+                        }
+
+                    }
+                }
+
+                return registeredUser;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

@@ -33,6 +33,7 @@
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonAuth = new System.Windows.Forms.Button();
+            this.buttonRegistration = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxLogin
@@ -55,6 +56,7 @@
             // 
             this.textBoxPassword.Location = new System.Drawing.Point(161, 25);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(144, 20);
             this.textBoxPassword.TabIndex = 5;
             // 
@@ -77,11 +79,22 @@
             this.buttonAuth.UseVisualStyleBackColor = true;
             this.buttonAuth.Click += new System.EventHandler(this.buttonAuth_Click);
             // 
+            // buttonRegistration
+            // 
+            this.buttonRegistration.Location = new System.Drawing.Point(91, 137);
+            this.buttonRegistration.Name = "buttonRegistration";
+            this.buttonRegistration.Size = new System.Drawing.Size(111, 42);
+            this.buttonRegistration.TabIndex = 7;
+            this.buttonRegistration.Text = "Registration";
+            this.buttonRegistration.UseVisualStyleBackColor = true;
+            this.buttonRegistration.Click += new System.EventHandler(this.buttonRegistration_Click);
+            // 
             // FormAuth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(321, 117);
+            this.ClientSize = new System.Drawing.Size(321, 191);
+            this.Controls.Add(this.buttonRegistration);
             this.Controls.Add(this.buttonAuth);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.label2);
@@ -102,5 +115,6 @@
         public System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.Button buttonAuth;
+        public System.Windows.Forms.Button buttonRegistration;
     }
 }

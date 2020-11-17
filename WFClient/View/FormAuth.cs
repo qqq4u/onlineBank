@@ -28,5 +28,10 @@ namespace WFClient.View
         {
             await controller.UserGetUserByLoginPassword();
         }
+
+        private void buttonRegistration_Click(object sender, EventArgs e)
+        {
+            controller.OpenNewRegistrationForm();
+        }
     }
 }

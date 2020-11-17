@@ -66,6 +66,26 @@ namespace WFClient.Model
             return client.RetrieveServerResponseAsync(request);
         }
 
+        public Task<Response> RegisterNewUser(string name, string login, string password)
+        {
+            Dictionary<string, string> registerParameters = new Dictionary<string, string>();
+
+            registerParameters["name"] = name;
+            registerParameters["login"] = login;
+            registerParameters["password"] = password;
+
+            Request request = new Request()
+            {
+                Command = "Users.RegisterNewUser",
+                Parameters = JsonConvert.SerializeObject(registerParameters),
+                APIKey = apiKey
+            };
+
+            return client.RetrieveServerResponseAsync(request);
+
+        }
+
+
         public Task<Response> AddingCardBalanceByNumber(int cardNumber, int moneyCount)
         {
             Dictionary<string, int> addingBalanceParameters = new Dictionary<string, int>();
